@@ -20,7 +20,7 @@ y_normiert = y/max(abs(y));
 
 % Samples und SampleFrequence ausgeben
 fprintf('Die Anzahl der Samples beträgt %d\n', FileSize);
-fprintf('Die Samplerate beträgt %d\n', SampleFrequence);
+fprintf('Die Anzahl der Samples beträgt %d\n', FileSize);
 
 % Ergebnis ausgeben
 figure(1);
@@ -41,9 +41,6 @@ xlabel('Samples');
 ylabel('Amplitude');
 
 % Audioausgabe
-fprintf('ENTER drücken um Original-Audiodatei abzuspielen\n');
-pause;
 sound(y_normiert, SampleFrequence);
-fprintf('ENTER drücken um gleitenden Mittelwert abzuspielen\n');
 pause;
 sound(yMA_normiert, SampleFrequence);
