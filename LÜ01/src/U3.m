@@ -37,7 +37,7 @@ fprintf('Die Samplerate beträgt %d\n', SampleFrequence);
 
 % Ergebnis ausgeben
 figure(1);
-subplot(2,2,1),
+subplot(3,1,1),
 plot(y);
 title('Original-Datei');
 grid off; 
@@ -45,7 +45,7 @@ grid off;
 xlabel('Samples');
 ylabel('Amplitude');
 
-subplot(2,2,2),
+subplot(3,1,2),
 plot(yTan);
 title('Verzerrt mit Tangens-Hyperbolicus');
 grid off;
@@ -53,7 +53,7 @@ grid off;
 xlabel('Samples');
 ylabel('Amplitude');
 
-subplot(2,2,3),
+subplot(3,1,3),
 plot(yBen);
 title('Verzerrt mit Bendiksen');
 grid off;
