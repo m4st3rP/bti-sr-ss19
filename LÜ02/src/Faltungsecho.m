@@ -1,6 +1,15 @@
 % Audio lesen
-[soundFile, soundSampleFrequence] = audioread('InTheSilo2.wav');
+[soundFile, soundSampleFrequence] = audioread('GitRiff.wav');
 [impAns, impAnsSampleFrequence] = audioread('TrigRoom2.wav');
+
+% Echo-Matrix
+%           Position    Echo-
+%           in Sek.     höhe
+Echos       = [ 0       1.0; ...
+                0.3     0.3; ...
+                0.5     0.2; ...
+                0.7     0.1; ...
+                0.75    0.1];
 
 %soundFile = (soundFile(:,1) + soundFile(:,2))/2;
 impAns = (impAns(:,1) + impAns(:,2))/2;
@@ -9,6 +18,15 @@ impAns = (impAns(:,1) + impAns(:,2))/2;
 soundFileSize = size(soundFile, 1);
 impAnsFileSize = size(impAns, 1);
 
+% Echo anwenden
+for j = 1:size(Echos,1)
+    delay = int32(Echos(j,1) * impAnsSampleFrequence);
+    feedback = Echos(j,2);
+    for i = (delay+1):impAnsFileSize
+       impAns(i) = impAns(i) + impAns(i-delay) * feedback;  
+    end
+end
+    
 % Samples und SampleFrequence ausgeben
 fprintf('Die Anzahl der Samples vom unberarbeiteten Signal beträgt %d\n', soundFileSize);
 fprintf('Die Samplerate vom unberarbeiteten Signal beträgt %d\n', soundSampleFrequence);
@@ -52,7 +70,7 @@ ylabel('Amplitude');
 % Audioausgabe
 fprintf('ENTER drücken um Original-Audiodatei abzuspielen\n');
 pause;
-sound(sound_normiert, soundSampleFrequence);
+%sound(sound_normiert, soundSampleFrequence);
 fprintf('ENTER drücken um die Systemantwort abzuspielen\n');
 pause;
 sound(mod_normiert, soundSampleFrequence);

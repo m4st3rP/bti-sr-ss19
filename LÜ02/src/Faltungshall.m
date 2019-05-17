@@ -1,12 +1,12 @@
 % Audio lesen
-[sound, soundSampleFrequence] = audioread('GitRiff.wav');
+[soundFile, soundSampleFrequence] = audioread('GitRiff.wav');
 [impAns, impAnsSampleFrequence] = audioread('TrigRoom2.wav');
 
-%sound = (sound(:,1) + sound(:,2))/2;
+%soundFile = (soundFile(:,1) + soundFile(:,2))/2;
 impAns = (impAns(:,1) + impAns(:,2))/2;
 
 % Dateigröße
-soundFileSize = size(sound, 1);
+soundFileSize = size(soundFile, 1);
 impAnsFileSize = size(impAns, 1);
 
 % Samples und SampleFrequence ausgeben
@@ -16,10 +16,11 @@ fprintf('Die Anzahl der Samples von der Stoßantwort beträgt %d\n', impAnsFileSiz
 fprintf('Die Samplerate vom von der Stoßantwort beträgt %d\n', impAnsSampleFrequence);
 
 % Faltung
-mod = conv(sound, impAns);
+%mod = conv(soundFile, impAns);
+mod = MyConv(soundFile, impAns);
 
 % Normieren
-sound_normiert = sound/max(abs(sound));
+sound_normiert = soundFile/max(abs(soundFile));
 impAns_normiert = impAns/max(abs(impAns));
 mod_normiert = mod/max(abs(mod));
 
@@ -50,9 +51,9 @@ xlabel('Samples');
 ylabel('Amplitude');
 
 % Audioausgabe
-fprintf('ENTER drücken um Original-Audiodatei abzuspielen\n');
-pause;
-sound(sound, soundSampleFrequence);
-fprintf('ENTER drücken um gleitenden Mittelwert abzuspielen\n');
-pause;
+% fprintf('ENTER drücken um Original-Audiodatei abzuspielen\n');
+% pause;
+% sound(sound_normiert, soundSampleFrequence);
+% fprintf('ENTER drücken um die Systemantwort abzuspielen\n');
+% pause;
 sound(mod_normiert, soundSampleFrequence);

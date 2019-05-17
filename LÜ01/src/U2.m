@@ -8,7 +8,7 @@ FSample = 10000;
 TSample = 1/FSample;
 % --
 t = t_Start:TSample:t_Stop;
-y = chirp(t, fStart, t_Stop, fStop, 'logarithmic');
+y = chirp(t, fStart, t_Stop, fStop, 'linear');
 
 % Dateigröße
 FileSize = size(y, 1);
@@ -52,7 +52,7 @@ ylabel('Amplitude');
 % Audioausgabe
 fprintf('ENTER drücken um Original-Audiodatei abzuspielen\n');
 pause;
-sound(y_normiert, SampleFrequence);
+sound(y_normiert, FSample);
 fprintf('ENTER drücken um gleitenden Mittelwert abzuspielen\n');
 pause;
-sound(yMA_normiert, SampleFrequence);
+sound(yMA_normiert, FSample);
